@@ -5,16 +5,20 @@ Gemini 3 Hackathon (https://gemini3.devpost.com) — Built with the Gemini API.
 SETUP INSTRUCTIONS:
 1. pip install -r requirements.txt
 2. Get Gemini API Key: https://aistudio.google.com/app/apikey
-3. streamlit run app.py
+3. streamlit run streamlit_app.py
 4. Optional: copy .env.example to .env and add GEMINI_API_KEY, NEWSAPI_API_KEY
 """
 
 import hashlib
 import os
 
+import pandas as pd
+import streamlit as st
+
 from dotenv import load_dotenv
 load_dotenv()
 
+from config import CUSTOM_CSS, PAGE_ICON, PAGE_TITLE, GEMINI_API_KEY as CONFIG_GEMINI_KEY, NEWSAPI_API_KEY as CONFIG_NEWSAPI_KEY
 # Streamlit Cloud secrets (dashboard) override env; push into os.environ so data.py etc. can use them
 try:
     for key in ("GEMINI_API_KEY", "NEWSAPI_API_KEY"):
@@ -22,11 +26,12 @@ try:
             os.environ[key] = str(st.secrets[key]).strip()
 except Exception:
     pass
+# Optional: config.py hardcoded keys (for local run only; use when .env is not set)
+if CONFIG_GEMINI_KEY and not os.environ.get("GEMINI_API_KEY"):
+    os.environ["GEMINI_API_KEY"] = CONFIG_GEMINI_KEY.strip()
+if CONFIG_NEWSAPI_KEY and not os.environ.get("NEWSAPI_API_KEY"):
+    os.environ["NEWSAPI_API_KEY"] = CONFIG_NEWSAPI_KEY.strip()
 
-import pandas as pd
-import streamlit as st
-
-from config import CUSTOM_CSS, PAGE_ICON, PAGE_TITLE
 from data import (
     fetch_gdelt_events,
     fetch_newsapi_events,

@@ -6,6 +6,11 @@ Gemini 3 Hackathon (https://gemini3.devpost.com)
 # ---------------------------------------------------------------------------
 # API
 # ---------------------------------------------------------------------------
+# Optional: paste API keys here for local run only. Do NOT commit real keys to a public repo.
+# Prefer using .env (gitignored) or Streamlit Cloud Secrets instead.
+GEMINI_API_KEY = ""   # e.g. "AIzaSy..."
+NEWSAPI_API_KEY = ""  # e.g. "abc123..."
+
 GDELT_URL = "https://api.gdeltproject.org/api/v2/doc/doc"
 GEMINI_MODEL = "gemini-3-flash-preview"
 GDELT_KEYWORDS = "port strike OR factory OR shortage OR cement OR steel OR infrastructure OR supply chain"
